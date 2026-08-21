@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
+import { localeAlternates } from "@/lib/seo";
+
 import { listStations } from "@/actions/stations";
 import { StationsFilter } from "@/components/stations/stations-filter";
 
@@ -11,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "stations" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/stations", locale) };
 }
 
 export default async function StationsPage({

@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
+
+import { localeAlternates } from "@/lib/seo";
 import { Tag } from "lucide-react";
 
 import { listActiveOffers } from "@/actions/offers";
@@ -13,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "offers" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/offers", locale) };
 }
 
 export default async function OffersPage({

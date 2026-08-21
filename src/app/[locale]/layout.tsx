@@ -11,6 +11,7 @@ import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { Toaster } from "@/components/ui/sonner";
 import { getSiteSetting } from "@/actions/settings";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants/site";
+import { localeAlternates } from "@/lib/seo";
 import "../globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -32,11 +33,7 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
     description: t("heroSubtitle") ?? SITE_DESCRIPTION,
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `${SITE_URL}/${l}`]),
-      ),
-    },
+    alternates: localeAlternates("", locale),
     openGraph: {
       siteName: SITE_NAME,
       type: "website",

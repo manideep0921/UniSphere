@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
+import { localeAlternates } from "@/lib/seo";
+
 import { listEquipment } from "@/actions/equipment";
 import { EquipmentSpecCard } from "@/components/equipment/equipment-spec-card";
 
@@ -11,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "technology" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/technology", locale) };
 }
 
 export default async function TechnologyPage({

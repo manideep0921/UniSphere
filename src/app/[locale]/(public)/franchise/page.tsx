@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
+
+import { localeAlternates } from "@/lib/seo";
 import { ClipboardList, MessageSquare, Handshake, Zap } from "lucide-react";
 
 import { FranchiseForm } from "@/components/franchise/franchise-form";
@@ -11,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "franchise" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/franchise", locale) };
 }
 
 const STEPS = [

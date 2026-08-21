@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
+import { localeAlternates } from "@/lib/seo";
+
 import { listActiveServices } from "@/actions/services";
 import { Card, CardContent } from "@/components/ui/card";
 import { DynamicIcon } from "@/components/ui/dynamic-icon";
@@ -13,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "services" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/services", locale) };
 }
 
 export default async function ServicesPage({

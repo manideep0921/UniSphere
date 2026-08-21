@@ -1,6 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
+import { localeAlternates } from "@/lib/seo";
+
 import { listStations } from "@/actions/stations";
 import { FeedbackForm } from "@/components/feedback/feedback-form";
 
@@ -11,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "feedback" });
-  return { title: t("title"), description: t("subtitle") };
+  return { title: t("title"), description: t("subtitle"), alternates: localeAlternates("/feedback", locale) };
 }
 
 export default async function FeedbackPage({

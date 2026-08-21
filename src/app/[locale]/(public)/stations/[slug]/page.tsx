@@ -13,20 +13,21 @@ import { StationStatusBadge } from "@/components/stations/station-status-badge";
 import { EquipmentSpecCard } from "@/components/equipment/equipment-spec-card";
 import { DynamicIcon } from "@/components/ui/dynamic-icon";
 import { SITE_URL } from "@/lib/constants/site";
+import { localeAlternates } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const station = await getStationBySlug(slug);
   if (!station) return {};
 
   return {
     title: station.name_en,
     description: station.description_en ?? undefined,
-    alternates: { canonical: `${SITE_URL}/stations/${slug}` },
+    alternates: localeAlternates(`/stations/${slug}`, locale),
   };
 }
 
