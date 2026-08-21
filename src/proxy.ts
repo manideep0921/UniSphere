@@ -58,6 +58,10 @@ async function handleAdminProxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/admin/dashboard", request.url));
   }
 
+  if (user && request.nextUrl.pathname === "/admin") {
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
+
   return response;
 }
 
